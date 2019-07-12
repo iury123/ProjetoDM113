@@ -82,10 +82,7 @@ namespace Estoques
                 using (ProvedorEstoque database = new ProvedorEstoque())
                 {
                     List<ProdutoEstoque> produtoEstoques = database.ProdutoEstoques.ToList();
-                    foreach (ProdutoEstoque estoque in produtoEstoques)
-                    {
-                        produtos.Add(estoque.NomeProduto);
-                    }
+                    produtoEstoques.ForEach((estoque) => produtos.Add(estoque.NomeProduto)); 
                 }
             }
             catch { }
