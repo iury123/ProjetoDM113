@@ -24,7 +24,7 @@ namespace Estoques
         [OperationContract]
         bool AdicionarEstoque(string NumeroProduto, int Quantidade);
         [OperationContract]
-        bool RemoverEstoque(string NumeroProduto, string Quantidade);
+        bool RemoverEstoque(string NumeroProduto, int Quantidade);
         [OperationContract]
         Produto VerProduto(string NumeroProduto);
     }

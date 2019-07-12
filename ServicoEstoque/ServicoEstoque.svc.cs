@@ -39,14 +39,14 @@ namespace Estoques
         {
             try
             {
-                using(ProvedorEstoque database = new ProvedorEstoque())
+                using (ProvedorEstoque database = new ProvedorEstoque())
                 {
                     List<ProdutoEstoque> result = database.ProdutoEstoques
                         .Where(p => p.NumeroProduto == NumeroProduto).ToList();
                     return result.First().EstoqueProduto;
                 }
             }
-            catch {}
+            catch { }
             return -1;
         }
 
@@ -79,21 +79,43 @@ namespace Estoques
             List<string> produtos = new List<string>();
             try
             {
-                using(ProvedorEstoque database = new ProvedorEstoque())
+                using (ProvedorEstoque database = new ProvedorEstoque())
                 {
                     List<ProdutoEstoque> produtoEstoques = database.ProdutoEstoques.ToList();
-                    foreach(ProdutoEstoque estoque in produtoEstoques)
+                    foreach (ProdutoEstoque estoque in produtoEstoques)
                     {
                         produtos.Add(estoque.NomeProduto);
                     }
                 }
-            } catch {}
+            }
+            catch { }
             return produtos;
         }
 
-        public bool RemoverEstoque(string NumeroProduto, string Quantidade)
+        public bool RemoverEstoque(string NumeroProduto, int Quantidade)
         {
-            throw new NotImplementedException();
+            try
+            {
+                using (ProvedorEstoque database = new ProvedorEstoque())
+                {
+                    List<ProdutoEstoque> result = database.ProdutoEstoques.Where(p => p.NumeroProduto == NumeroProduto).ToList();
+                    ProdutoEstoque produtoEstoque = result.First();
+                    if (produtoEstoque.EstoqueProduto >= Quantidade)
+                    {
+                        produtoEstoque.EstoqueProduto -= Quantidade;
+                        database.SaveChanges();
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+            catch
+            {
+                return false;
+            }
+            return true;
         }
 
         public bool RemoverProduto(string NumeroProduto)
