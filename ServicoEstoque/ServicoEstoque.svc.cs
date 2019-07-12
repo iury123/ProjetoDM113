@@ -18,7 +18,21 @@ namespace Estoques
     {
         public bool AdicionarEstoque(string NumeroProduto, int Quantidade)
         {
-            throw new NotImplementedException();
+            try
+            {
+                using (ProvedorEstoque database = new ProvedorEstoque())
+                {
+                    List<ProdutoEstoque> result = database.ProdutoEstoques.Where(p => p.NumeroProduto == NumeroProduto).ToList();
+                    ProdutoEstoque produtoEstoque = result.First();
+                    produtoEstoque.EstoqueProduto += Quantidade;
+                    database.SaveChanges();
+                }
+            }
+            catch
+            {
+                return false;
+            }
+            return true;
         }
 
         public int ConsultarEstoque(string NumeroProduto)
