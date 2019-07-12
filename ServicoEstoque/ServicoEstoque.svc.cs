@@ -23,12 +23,41 @@ namespace Estoques
 
         public int ConsultarEstoque(string NumeroProduto)
         {
-            throw new NotImplementedException();
+            try
+            {
+                using(ProvedorEstoque database = new ProvedorEstoque())
+                {
+                    List<ProdutoEstoque> result = database.ProdutoEstoques
+                        .Where(p => p.NumeroProduto == NumeroProduto).ToList();
+                    return result.First().EstoqueProduto;
+                }
+            }
+            catch {}
+            return -1;
         }
 
         public bool IncluirProduto(Produto produto)
         {
-            throw new NotImplementedException();
+            try
+            {
+                using (ProvedorEstoque database = new ProvedorEstoque())
+                {
+                    ProdutoEstoque produtoEstoque = new ProdutoEstoque()
+                    {
+                        NomeProduto = produto.NomeProduto,
+                        NumeroProduto = produto.NumeroProduto,
+                        DescricaoProduto = produto.DescricaoProduto,
+                        EstoqueProduto = produto.EstoqueProduto
+                    };
+                    database.ProdutoEstoques.Add(produtoEstoque);
+                    database.SaveChanges();
+                }
+            }
+            catch
+            {
+                return false;
+            }
+            return true;
         }
 
         public List<string> ListarProdutos()
