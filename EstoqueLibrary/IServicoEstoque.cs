@@ -8,7 +8,7 @@ using System.Text;
 namespace Estoques
 {
     // NOTE: You can use the "Rename" command on the "Refactor" menu to change the interface name "IService1" in both code and config file together.
-    [ServiceContract]
+    [ServiceContract(Namespace = "http://projetoavaliativo.dm113/01", Name = "IServicoEstoque")]
     public interface IServicoEstoque
     {
 
@@ -26,6 +26,17 @@ namespace Estoques
         bool RemoverEstoque(string NumeroProduto, int Quantidade);
         [OperationContract]
         Produto VerProduto(string NumeroProduto);
+    }
+
+    [ServiceContract(Namespace = "http://projetoavaliativo.dm113/02", Name = "IServicoEstoque")]
+    public interface IServicoEstoqueV2
+    {
+        [OperationContract]
+        int ConsultarEstoque(string NumeroProduto);
+        [OperationContract]
+        bool AdicionarEstoque(string NumeroProduto, int Quantidade);
+        [OperationContract]
+        bool RemoverEstoque(string NumeroProduto, int Quantidade);
     }
 
 
