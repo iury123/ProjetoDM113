@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="e5dafd2e-e7eb-499d-907e-031ceefb1cc5" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:63012/ServicoEstoque.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="ServicoEstoque.wsdl" MetadataType="Wsdl" ID="5f63037a-a2b7-4baa-8353-3b07baed7828" SourceId="1" SourceUrl="http://localhost:63012/ServicoEstoque.svc?wsdl" />
+    <MetadataFile FileName="ServicoEstoque.disco" MetadataType="Disco" ID="5dd1ead3-80df-4431-8ead-5ce4fbc3f159" SourceId="1" SourceUrl="http://localhost:63012/ServicoEstoque.svc?disco" />
+    <MetadataFile FileName="ServicoEstoque.xsd" MetadataType="Schema" ID="3524223e-66e9-4bfe-afcd-6806cec8ec93" SourceId="1" SourceUrl="http://localhost:63012/ServicoEstoque.svc?xsd=xsd3" />
+    <MetadataFile FileName="ServicoEstoque1.xsd" MetadataType="Schema" ID="58d935a5-939d-4fa0-aa98-b057bd5a98d2" SourceId="1" SourceUrl="http://localhost:63012/ServicoEstoque.svc?xsd=xsd2" />
+    <MetadataFile FileName="ServicoEstoque2.xsd" MetadataType="Schema" ID="8119aeaf-f097-428f-a741-9701d6f7638b" SourceId="1" SourceUrl="http://localhost:63012/ServicoEstoque.svc?xsd=xsd1" />
+    <MetadataFile FileName="ServicoEstoque3.xsd" MetadataType="Schema" ID="bea03904-df57-49a1-95f7-67bc9b7ee2f8" SourceId="1" SourceUrl="http://localhost:63012/ServicoEstoque.svc?xsd=xsd0" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>
