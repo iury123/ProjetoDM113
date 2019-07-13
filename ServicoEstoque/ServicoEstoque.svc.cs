@@ -2,6 +2,7 @@
 using Estoques;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
@@ -22,9 +23,17 @@ namespace Estoques
             {
                 using (ProvedorEstoque database = new ProvedorEstoque())
                 {
-                    List<ProdutoEstoque> result = database.ProdutoEstoques.Where(p => p.NumeroProduto == NumeroProduto).ToList();
+                    List<ProdutoEstoque> result = database.ProdutoEstoques
+                        .Where(p => p.NumeroProduto == NumeroProduto).ToList();
+
+                    if (result.Count() == 0)
+                    {
+                        return false;
+                    }
+
                     ProdutoEstoque produtoEstoque = result.First();
                     produtoEstoque.EstoqueProduto += Quantidade;
+                    database.Entry(produtoEstoque).State = EntityState.Modified;
                     database.SaveChanges();
                 }
             }
@@ -43,6 +52,12 @@ namespace Estoques
                 {
                     List<ProdutoEstoque> result = database.ProdutoEstoques
                         .Where(p => p.NumeroProduto == NumeroProduto).ToList();
+
+                    if (result.Count() == 0)
+                    {
+                        return -1;
+                    }
+
                     return result.First().EstoqueProduto;
                 }
             }
@@ -56,6 +71,15 @@ namespace Estoques
             {
                 using (ProvedorEstoque database = new ProvedorEstoque())
                 {
+
+                    List<ProdutoEstoque> result = database.ProdutoEstoques
+                        .Where(p => p.NumeroProduto == produto.NumeroProduto).ToList();
+
+                    if(result.Count() > 0)
+                    {
+                        return false;
+                    }
+
                     ProdutoEstoque produtoEstoque = new ProdutoEstoque()
                     {
                         NomeProduto = produto.NomeProduto,
@@ -82,7 +106,7 @@ namespace Estoques
                 using (ProvedorEstoque database = new ProvedorEstoque())
                 {
                     List<ProdutoEstoque> produtoEstoques = database.ProdutoEstoques.ToList();
-                    produtoEstoques.ForEach((estoque) => produtos.Add(estoque.NomeProduto)); 
+                    produtoEstoques.ForEach((estoque) => produtos.Add(estoque.NomeProduto));
                 }
             }
             catch { }
@@ -95,7 +119,14 @@ namespace Estoques
             {
                 using (ProvedorEstoque database = new ProvedorEstoque())
                 {
-                    List<ProdutoEstoque> result = database.ProdutoEstoques.Where(p => p.NumeroProduto == NumeroProduto).ToList();
+                    List<ProdutoEstoque> result = database.ProdutoEstoques
+                        .Where(p => p.NumeroProduto == NumeroProduto).ToList();
+
+                    if (result.Count() == 0)
+                    {
+                        return false;
+                    }
+
                     ProdutoEstoque produtoEstoque = result.First();
                     if (produtoEstoque.EstoqueProduto >= Quantidade)
                     {
@@ -117,12 +148,60 @@ namespace Estoques
 
         public bool RemoverProduto(string NumeroProduto)
         {
-            throw new NotImplementedException();
+            try
+            {
+                using (ProvedorEstoque database = new ProvedorEstoque())
+                {
+                    List<ProdutoEstoque> result = database.ProdutoEstoques
+                        .Where(p => p.NumeroProduto == NumeroProduto).ToList();
+
+                    if (result.Count() == 0)
+                    {
+                        return false;
+                    }
+
+                    database.ProdutoEstoques.Remove(result.First());
+                    database.SaveChanges();
+                }
+            }
+            catch
+            {
+                return false;
+            }
+            return true;
         }
 
         public Produto VerProduto(string NumeroProduto)
         {
-            throw new NotImplementedException();
+            Produto produto = null;
+            try
+            {
+                using (ProvedorEstoque database = new ProvedorEstoque())
+                {
+                    List<ProdutoEstoque> result = database.ProdutoEstoques
+                        .Where(p => p.NumeroProduto == NumeroProduto).ToList();
+
+                    if (result.Count() == 0)
+                    {
+                        return null;
+                    }
+
+                    ProdutoEstoque produtoEstoque = result.First();
+
+                    produto = new Produto()
+                    {
+                        NomeProduto = produtoEstoque.NomeProduto,
+                        NumeroProduto = produtoEstoque.NumeroProduto,
+                        DescricaoProduto = produtoEstoque.DescricaoProduto,
+                        EstoqueProduto = produtoEstoque.EstoqueProduto
+                    };
+                }
+            }
+            catch
+            {
+                return null;
+            }
+            return produto;
         }
     }
 }
