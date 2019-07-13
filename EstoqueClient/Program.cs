@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ServiceModel;
-using EstoqueClient.Estoques;
+using EstoqueClient.ServicoEstoque;
 
 namespace EstoqueClient
 {
@@ -19,7 +19,7 @@ namespace EstoqueClient
             List<string> products = proxy.ListarProdutos().ToList();
             foreach (string p in products)
             {
-                Console.WriteLine("Name: {0}", p);
+                Console.WriteLine("NOME: {0}", p);
                 Console.WriteLine();
             }
             Console.WriteLine();
