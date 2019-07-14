@@ -80,13 +80,16 @@ namespace EstoqueClient
             Console.WriteLine();
 
             produto = proxy.VerProduto("1000");
-            Console.WriteLine("Produto 1");
-            Console.WriteLine("Nome: {0}", produto.NomeProduto);
-            Console.WriteLine("Numero: {0}", produto.NumeroProduto);
-            Console.WriteLine("Descricao: {0}", produto.DescricaoProduto);
-            Console.WriteLine("Estoque Number: {0}", produto.EstoqueProduto);
-            Console.WriteLine();
-
+            if(produto != null)
+            {
+                Console.WriteLine("Produto 1");
+                Console.WriteLine("Nome: {0}", produto.NomeProduto);
+                Console.WriteLine("Numero: {0}", produto.NumeroProduto);
+                Console.WriteLine("Descricao: {0}", produto.DescricaoProduto);
+                Console.WriteLine("Estoque Number: {0}", produto.EstoqueProduto);
+                Console.WriteLine();
+            }
+            
             // Disconnect from the service
             proxy.Close();
             Console.WriteLine("Press ENTER to finish");
